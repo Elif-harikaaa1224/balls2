@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>$BALLSGUY Coin</title>
     <link rel="icon" type="image/png" href="kva.png">
     <meta name="description" content="BALLSGUY - CA: 6kJndkQUjQ8Gh7WbXax9P2Hda9YjYDeuNqfhTwqDpump">
@@ -43,6 +43,8 @@
             perspective: none !important;
             filter: none !important;
             will-change: auto !important;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         /* ==================== BACKGROUND ==================== */
@@ -175,6 +177,9 @@
             color: #fff;
             border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         .btn:hover {
@@ -244,6 +249,9 @@
             gap: 10px;
             font-size: 0.95rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         .ca-field:hover {
@@ -384,6 +392,8 @@
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .gallery-item:hover {
@@ -454,34 +464,66 @@
         }
 
         /* ==================== MOBILE ==================== */
+        @media (max-width: 1024px) {
+            .page-content {
+                margin-left: 0;
+                padding: 0 20px;
+            }
+            
+            .lore-box {
+                position: relative !important;
+                left: auto !important;
+                top: auto !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 20px auto !important;
+                max-height: none !important;
+            }
+            
+            .gallery-section {
+                padding: 40px 20px;
+            }
+        }
+
         @media (max-width: 768px) {
             .buttons-container {
                 flex-direction: column;
                 width: 90%;
-                gap: 10px;
+                gap: 12px;
+                top: 10px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
             }
 
             .btn {
                 width: 100%;
-                padding: 12px 25px;
+                padding: 16px 30px;
                 font-size: 1rem;
+                min-height: 48px; /* Минимальный размер для touch */
             }
 
             .ca-container {
-                top: 160px;
-                width: 90%;
+                top: 80px !important;
+                width: 90% !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
             }
 
             .ca-field {
                 font-size: 0.85rem;
-                padding: 10px 15px;
+                padding: 14px 20px;
+                min-height: 48px; /* Минимальный размер для touch */
             }
 
             .lore-box {
-                left: 10px;
-                top: 180px;
-                max-width: 300px;
-                padding: 25px;
+                position: relative !important;
+                left: auto !important;
+                top: auto !important;
+                width: calc(100% - 40px) !important;
+                max-width: 100% !important;
+                margin: 20px auto !important;
+                padding: 25px 20px !important;
+                max-height: none !important;
             }
 
             .lore-title {
@@ -489,7 +531,8 @@
             }
 
             .lore-text {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
+                line-height: 1.7;
             }
 
             .figure {
@@ -499,32 +542,107 @@
 
             .gallery-title {
                 font-size: 2.5rem;
+                margin-bottom: 30px;
             }
 
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
             }
+            
+            .gallery-item {
+                border-width: 2px;
+            }
+            
+            .spacer {
+                height: 50vh;
+            }
         }
 
         @media (max-width: 480px) {
+            .buttons-container {
+                width: calc(100% - 20px);
+                top: 5px !important;
+            }
+            
+            .btn {
+                padding: 14px 25px;
+                font-size: 0.95rem;
+            }
+            
+            .ca-container {
+                top: 70px !important;
+                width: calc(100% - 20px) !important;
+            }
+
             .lore-box {
-                top: 180px;
-                max-width: 260px;
-                padding: 20px;
+                width: calc(100% - 20px) !important;
+                padding: 20px 15px !important;
+                margin: 15px auto !important;
             }
 
             .lore-title {
                 font-size: 1.8rem;
+                margin-bottom: 15px;
             }
 
             .lore-text {
-                font-size: 0.75rem;
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+            
+            .lore-text p {
+                margin-bottom: 12px;
             }
 
             .figure {
                 width: 80px;
                 height: 80px;
+            }
+            
+            .gallery-title {
+                font-size: 2rem;
+                margin-bottom: 25px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .gallery-section {
+                padding: 30px 15px;
+            }
+            
+            .spacer {
+                height: 30vh;
+            }
+            
+            .lightbox-close {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .lore-title {
+                font-size: 1.5rem;
+            }
+            
+            .lore-text {
+                font-size: 0.8rem;
+            }
+            
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
             }
         }
 
@@ -648,60 +766,85 @@
                     return;
                 }
                 
-                // КРИТИЧНО: Перемещаем в начало body
-                if (loreBox.parentElement !== document.body) {
-                    loreBox.parentElement.removeChild(loreBox);
-                    document.body.insertBefore(loreBox, document.body.firstChild);
-                }
+                // Проверяем, мобильное ли устройство
+                const isMobile = window.innerWidth <= 1024;
                 
-                const TOP = 180;
-                const LEFT = 30;
-                
-                // Принудительно фиксируем - БЕЗ ПРОВЕРОК
-                function lockIt() {
-                    // КРИТИЧНО: Убираем ВСЕ inline стили включая inset
-                    loreBox.removeAttribute('style');
-                    
-                    // Устанавливаем ТОЛЬКО через setProperty с !important
-                    // НЕ используем inset, только top и left
-                    loreBox.style.setProperty('position', 'fixed', 'important');
-                    loreBox.style.setProperty('left', LEFT + 'px', 'important');
-                    loreBox.style.setProperty('top', TOP + 'px', 'important');
-                    loreBox.style.setProperty('right', 'auto', 'important');
-                    loreBox.style.setProperty('bottom', 'auto', 'important');
-                    loreBox.style.setProperty('margin', '0', 'important');
-                    loreBox.style.setProperty('padding', '35px', 'important');
-                    loreBox.style.setProperty('transform', 'none', 'important');
-                    loreBox.style.setProperty('z-index', '999999', 'important');
-                    // ЯВНО убираем inset если он есть
-                    loreBox.style.removeProperty('inset');
-                }
-                
-                // Блокируем СРАЗУ
-                lockIt();
-                
-                // БЛОКИРУЕМ ПРИ ЛЮБОМ СКРОЛЛЕ
-                function onScroll() {
-                    lockIt();
-                    // Проверяем позицию и если сдвинулась - возвращаем
-                    const rect = loreBox.getBoundingClientRect();
-                    if (Math.abs(rect.top - TOP) > 1) {
-                        lockIt();
+                if (!isMobile) {
+                    // ТОЛЬКО на десктопе: перемещаем в начало body и фиксируем
+                    if (loreBox.parentElement !== document.body) {
+                        loreBox.parentElement.removeChild(loreBox);
+                        document.body.insertBefore(loreBox, document.body.firstChild);
                     }
-                }
-                
-                window.addEventListener('scroll', onScroll, true);
-                document.addEventListener('scroll', onScroll, true);
-                
-                // БЛОКИРУЕМ ПОСТОЯННО через requestAnimationFrame
-                function keepLocked() {
+                    
+                    const TOP = 180;
+                    const LEFT = 30;
+                    
+                    // Принудительно фиксируем - БЕЗ ПРОВЕРОК
+                    function lockIt() {
+                        // Проверяем снова, не изменился ли размер экрана
+                        if (window.innerWidth <= 1024) return;
+                        
+                        // КРИТИЧНО: Убираем ВСЕ inline стили включая inset
+                        loreBox.removeAttribute('style');
+                        
+                        // Устанавливаем ТОЛЬКО через setProperty с !important
+                        // НЕ используем inset, только top и left
+                        loreBox.style.setProperty('position', 'fixed', 'important');
+                        loreBox.style.setProperty('left', LEFT + 'px', 'important');
+                        loreBox.style.setProperty('top', TOP + 'px', 'important');
+                        loreBox.style.setProperty('right', 'auto', 'important');
+                        loreBox.style.setProperty('bottom', 'auto', 'important');
+                        loreBox.style.setProperty('margin', '0', 'important');
+                        loreBox.style.setProperty('padding', '35px', 'important');
+                        loreBox.style.setProperty('transform', 'none', 'important');
+                        loreBox.style.setProperty('z-index', '999999', 'important');
+                        // ЯВНО убираем inset если он есть
+                        loreBox.style.removeProperty('inset');
+                    }
+                    
+                    // Блокируем СРАЗУ
                     lockIt();
+                    
+                    // БЛОКИРУЕМ ПРИ ЛЮБОМ СКРОЛЛЕ
+                    function onScroll() {
+                        if (window.innerWidth <= 1024) return;
+                        lockIt();
+                        // Проверяем позицию и если сдвинулась - возвращаем
+                        const rect = loreBox.getBoundingClientRect();
+                        if (Math.abs(rect.top - TOP) > 1) {
+                            lockIt();
+                        }
+                    }
+                    
+                    window.addEventListener('scroll', onScroll, true);
+                    document.addEventListener('scroll', onScroll, true);
+                    
+                    // БЛОКИРУЕМ ПОСТОЯННО через requestAnimationFrame
+                    function keepLocked() {
+                        if (window.innerWidth > 1024) {
+                            lockIt();
+                        }
+                        requestAnimationFrame(keepLocked);
+                    }
                     requestAnimationFrame(keepLocked);
+                    
+                    // Также каждые 16ms (60fps)
+                    setInterval(function() {
+                        if (window.innerWidth > 1024) {
+                            lockIt();
+                        }
+                    }, 16);
+                } else {
+                    // На мобильных - убираем все inline стили, чтобы работали CSS медиа-запросы
+                    loreBox.removeAttribute('style');
                 }
-                requestAnimationFrame(keepLocked);
                 
-                // Также каждые 16ms (60fps)
-                setInterval(lockIt, 16);
+                // При изменении размера окна - перезапускаем
+                let resizeTimeout;
+                window.addEventListener('resize', function() {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(fixLoreBox, 100);
+                });
             }
             
             if (document.readyState === 'loading') {
