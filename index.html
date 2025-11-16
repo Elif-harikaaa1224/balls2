@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BALLSGUY Token | Solana Meme Coin</title>
+    <meta name="description" content="BALLSGUY - CA: 6kJndkQUjQ8Gh7WbXax9P2Hda9YjYDeuNqfhTwqDpump">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* ==================== BACKGROUND ==================== */
+        .background {
+            /* ВАЖНО: Замените 'walls.png' на ваше изображение */
+            background-image: url('unnamed.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .buttons-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        /* ==================== CA FIELD ==================== */
+        .ca-container {
+            position: fixed;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: 0 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .ca-field {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .ca-field:hover {
+            border-color: #00FF00;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 8px 32px rgba(0, 255, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .ca-field:active {
+            transform: translateY(0);
+        }
+
+        .ca-label {
+            font-weight: bold;
+            color: #00FF00;
+        }
+
+        .ca-address {
+            font-family: monospace;
+            word-break: break-all;
+            text-align: center;
+        }
+
+        /* ==================== LORE BOX ==================== */
+        .lore-box {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 420px;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 35px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(255, 215, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            z-index: 90;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .lore-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: 3px;
+            filter: drop-shadow(0 2px 10px rgba(255, 215, 0, 0.3));
+        }
+
+        .lore-text {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .lore-text p {
+            margin-bottom: 14px;
+        }
+
+        .lore-text strong {
+            color: #00FF00;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .lore-highlight {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .lore-creator {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            font-size: 0.85rem;
+            color: #FFD700;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3));
+            border-color: #FFD700;
+        }
+
+        .btn-buy:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.5), rgba(255, 165, 0, 0.5));
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-community {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 200, 0, 0.2));
+            border-color: #00FF00;
+        }
+
+        .btn-community:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.4), rgba(0, 200, 0, 0.4));
+            box-shadow: 0 12px 40px rgba(0, 255, 0, 0.4);
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-add:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+            box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        /* ==================== DRAGGABLE FIGURES ==================== */
+        .figure {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            cursor: move;
+            user-select: none;
+            z-index: 10;
+            transition: transform 0.1s ease;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .figure:hover {
+            transform: scale(1.1);
+        }
+
+        .figure:active {
+            cursor: grabbing;
+            transform: scale(1.15);
+            z-index: 50;
+        }
+
+        /* Delete button on figure */
+        .figure .delete-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .figure:hover .delete-btn {
+            display: flex;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+            transform: scale(1.1);
+        }
+
+        /* ==================== INSTRUCTIONS ==================== */
+        .instructions {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 15px;
+            z-index: 100;
+            text-align: center;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ==================== MOBILE RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .buttons-container {
+                flex-direction: column;
+                width: 90%;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            .ca-container {
+                top: 160px;
+                width: 90%;
+            }
+
+            .ca-field {
+                font-size: 0.85rem;
+                padding: 10px 15px;
+            }
+
+            .lore-box {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin: 180px 20px 20px 20px;
+                max-width: calc(100% - 40px);
+                padding: 20px;
+            }
+
+            .lore-title {
+                font-size: 2rem;
+            }
+
+            .lore-text {
+                font-size: 0.9rem;
+            }
+
+            .figure {
+                width: 100px;
+                height: 100px;
+            }
+
+            .instructions {
+                font-size: 0.8rem;
+                padding: 10px 20px;
+                bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .figure {
+                width: 80px;
+                height: 80px;
+            }
+
+            .buttons-container {
+                top: 10px;
+            }
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .figure {
+            animation: fadeIn 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background"></div>
+
+    <!-- Lore Box -->
+    <div class="lore-box">
+        <h1 class="lore-title">$BALLSGUY</h1>
+        <div class="lore-text">
+            <p>Hello, I'm <strong>$BALLSGUY</strong> created by Franek.</p>
+            
+            <p>I'm a <span class="lore-highlight">highly viral meme</span>: at the moment of writing this post, I've already gathered <strong>3.5 million views</strong> on X.</p>
+            
+            <p>I perfectly reflect the market's mood and what Solana traders are missing — <strong>balls</strong>. I've got extremely big ones, and I'm ready to share them with everyone to make our beloved cryptomeme market a better place.</p>
+            
+            <p><span class="lore-highlight">Let's grow you a pair just as massive.</span></p>
+            
+            <p>Show that you are <strong>$BALLSGUY</strong>.</p>
+            
+            <p>Hold onto our community as tightly as you hold onto your own balls.</p>
+        </div>
+        <div class="lore-creator">— Created by Franek</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons-container">
+        <a href="https://pump.fun/coin/6kJndkQUjQ8Gh7WbXax9P2Hda9YjYDeuNqfhTwqDpump" 
+           class="btn btn-buy" 
+           target="_blank" 
+           rel="noopener">
+            Buy
+        </a>
+        
+        <a href="https://x.com/i/communities/1989797501629862169" 
+           class="btn btn-community" 
+           target="_blank" 
+           rel="noopener">
+            𝕏 Community
+        </a>
+
+        <button class="btn btn-add" onclick="addFigure()">
+            Add Figure
+        </button>
+    </div>
+
+    <!-- CA Field -->
+    <div class="ca-container">
+        <div class="ca-field" onclick="copyCA()">
+            <span class="ca-label">CA:</span>
+            <span class="ca-address" id="caAddress">6kJndkQUjQ8Gh7WbXax9P2Hda9YjYDeuNqfhTwqDpump</span>
+        </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions">
+        🎨 Click "Add Figure" to place objects | 🖱️ Drag to move | ❌ Hover to delete
+    </div>
+
+    <script>
+        // ==================== FIGURE MANAGEMENT ====================
+        let figureCount = 0;
+        
+        // Copy CA address
+        function copyCA() {
+            const caAddress = '6kJndkQUjQ8Gh7WbXax9P2Hda9YjYDeuNqfhTwqDpump';
+            
+            navigator.clipboard.writeText(caAddress).then(() => {
+                // Visual feedback
+                const caField = document.querySelector('.ca-field');
+                const originalText = caField.innerHTML;
+                
+                caField.innerHTML = '<span style="color: #00FF00;">✓ Copied!</span>';
+                caField.style.borderColor = '#00FF00';
+                
+                setTimeout(() => {
+                    caField.innerHTML = originalText;
+                    caField.style.borderColor = '#333';
+                }, 1500);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('CA: ' + caAddress);
+            });
+        }
+        
+        // Add new figure to the page
+        function addFigure() {
+            const figure = document.createElement('div');
+            figure.className = 'figure';
+            figure.id = 'figure-' + figureCount++;
+            
+            // Add your PNG image
+            const img = document.createElement('img');
+            img.src = 'kva.png'; // 👈 ЗАМЕНИТЕ НА ИМЯ ВАШЕГО PNG ФАЙЛА (например: 'ballsguy.png')
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'contain';
+            img.draggable = false;
+            figure.appendChild(img);
+            
+            // Create delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.innerHTML = '×';
+            deleteBtn.onclick = function(e) {
+                e.stopPropagation();
+                figure.remove();
+            };
+            figure.appendChild(deleteBtn);
+            
+            // Random initial position (center-ish area)
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const randomX = centerX + (Math.random() - 0.5) * 300;
+            const randomY = centerY + (Math.random() - 0.5) * 300;
+            
+            figure.style.left = randomX + 'px';
+            figure.style.top = randomY + 'px';
+            
+            // Add to page
+            document.body.appendChild(figure);
+            
+            // Make draggable
+            makeDraggable(figure);
+        }
+
+        // ==================== DRAG AND DROP FUNCTIONALITY ====================
+        function makeDraggable(element) {
+            let isDragging = false;
+            let offsetX = 0;
+            let offsetY = 0;
+
+            // Mouse events
+            element.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            // Touch events for mobile
+            element.addEventListener('touchstart', dragStart);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('touchend', dragEnd);
+
+            function dragStart(e) {
+                // Prevent if clicking delete button
+                if (e.target.classList.contains('delete-btn')) {
+                    return;
+                }
+
+                if (e.target === element || e.target.parentElement === element || e.target.tagName === 'IMG') {
+                    isDragging = true;
+                    element.style.zIndex = 50;
+
+                    // Get current position of element
+                    const rect = element.getBoundingClientRect();
+                    
+                    if (e.type === 'touchstart') {
+                        offsetX = e.touches[0].clientX - rect.left;
+                        offsetY = e.touches[0].clientY - rect.top;
+                    } else {
+                        offsetX = e.clientX - rect.left;
+                        offsetY = e.clientY - rect.top;
+                    }
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+
+                    let clientX, clientY;
+
+                    if (e.type === 'touchmove') {
+                        clientX = e.touches[0].clientX;
+                        clientY = e.touches[0].clientY;
+                    } else {
+                        clientX = e.clientX;
+                        clientY = e.clientY;
+                    }
+
+                    // Calculate new position
+                    const newX = clientX - offsetX;
+                    const newY = clientY - offsetY;
+
+                    element.style.left = newX + 'px';
+                    element.style.top = newY + 'px';
+                }
+            }
+
+            function dragEnd(e) {
+                isDragging = false;
+                element.style.zIndex = 10;
+            }
+        }
+
+        // ==================== KEYBOARD SHORTCUTS ====================
+        document.addEventListener('keydown', function(e) {
+            // Press 'A' or 'Space' to add figure
+            if (e.key === 'a' || e.key === 'A' || e.key === ' ') {
+                e.preventDefault();
+                addFigure();
+            }
+            
+            // Press 'C' to clear all figures
+            if (e.key === 'c' || e.key === 'C') {
+                if (confirm('Clear all figures?')) {
+                    document.querySelectorAll('.figure').forEach(fig => fig.remove());
+                }
+            }
+        });
+
+        // ==================== PREVENT CONTEXT MENU ON FIGURES ====================
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.classList.contains('figure')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
